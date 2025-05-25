@@ -1,0 +1,23 @@
+<%= form_with model: member do |form| %>
+    <div class="mb-3">
+        <%= form.label :name, class: "form-label", for: :name %>
+        <%= form.text_field :name, class: "form-control", id: :name %>
+    </div>
+    <div class="mb-3">
+        <%= form.label :surname, class: "form-label", for: :surname %>
+        <%= form.text_field :surname, class: "form-control", id: :surname %>
+    </div>
+    <div class="mb-3">
+        <%= form.label :email_address, class: "form-label", for: :email_address %>
+        <%= form.text_field :email_address, class: "form-control", id: :email_address %>
+    </div>
+
+    <div class="mb-3">
+        <%= form.label :birthday, class: "form-label", for: :birthday %>
+        <%= form.date_field  :birthday, class: "form-select", id: :birthday %>
+    </div>
+    <div class="mb-3">
+        <%= form.submit "Submit", :class => "btn btn-primary" %>
+        <%= link_to "Cancel", member, class: "btn btn-secondary" %>
+    </div>
+    <% end %>

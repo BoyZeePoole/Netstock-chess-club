@@ -1,3 +1,47 @@
-<h1><%= @member.name %></h1>
+<div class="container mt-4">
 
-<%= link_to "Back", members_path %>
+
+    <h5><%= @member.name %> <span  class="text-muted"><%= @member.email_address %></span></h5>
+    
+
+
+    <div class="row" style="width:30%">
+        <div class="col">
+            Name:
+        </div>
+        <div class="col">
+            <%= @member.name%>
+        </div>
+  </div>
+
+    <div class="row" style="width:30%">
+        <div class="col">
+            Surname:
+        </div>
+        <div class="col">
+            <%= @member.surname%>
+        </div>
+    </div>
+
+    <div class="row" style="width:30%">
+        <div class="col">
+            Email:
+        </div>
+        <div class="col">
+            <%= @member.email_address%>
+        </div>
+    </div>
+    <div class="row" style="width:30%">
+        <div class="col">
+            Games Played:
+        </div>
+        <div class="col">
+            <%= @member.no_of_games_played == nil ? "0" : @member.no_of_games_played%>
+        </div>
+    </div>
+    <div class="mt-5">
+        <%= link_to "Back", members_path, class: "btn btn-primary"  %>
+        <%= link_to "Edit", edit_member_path(@member), class: "btn btn-secondary"  %>
+    </div>
+    
+</div>

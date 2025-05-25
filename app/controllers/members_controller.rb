@@ -1,11 +1,12 @@
 class MembersController < ApplicationController
   
+  before_action :find_member, only: %i[ show edit update ]
+
   def index
     @members = Member.all
   end
 
   def show
-     @member = Member.find(params[:id])
   end
 
   def new 
@@ -22,6 +23,17 @@ class MembersController < ApplicationController
     end
   end
 
+  def edit
+  end
+
+  def update
+    if @member.update(member_params)
+      redirect_to @member
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def member_params
@@ -32,5 +44,9 @@ class MembersController < ApplicationController
     last = Member.maximum(:current_rank)
     return 1 if last == nil
     last + 1
+  end
+
+  def find_member
+    @member = Member.find(params[:id])
   end
 end
