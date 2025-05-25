@@ -1,0 +1,19 @@
+
+
+<div class="container">
+ <h1>Members</h1>
+
+
+<%= link_to "Add Member", new_member_path %>
+
+
+<div id="members">
+  <% @members.each do |member| %>
+    <div>
+      <%= link_to member.name, member %>
+    </div>
+  <% end %>
+</div>
+</div>
+
+
