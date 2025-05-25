@@ -1,0 +1,36 @@
+<div class="container mt-5">
+  <h4>Play Match</h4>
+    <%= form_with :url => {:action => "update"} do |form| %>
+
+    <div class="row">
+        <div class="col-4">
+            <div class="mb-3">
+                <label class="form-label">Player 01</label>
+                <%= form.select(:members_p1, options_for_select(@members.map{ |member| [member.name, member.id]}), {},{multiple: false, :id => "member", class: "form-select"}) %>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="mb-3">
+                <label class="form-label">Player 02</label>
+                <%= form.select(:members_p2, options_for_select(@members.map{ |member| [member.name, member.id]}), {},{multiple: false, :id => "member", class: "form-select"}) %>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="mb-3">
+                <label class="form-label">Outcome</label>
+                <%= form.select(:result, options_for_select([["Draw", 0]] + @members.map{ |member| [member.name, member.id]}), {},{multiple: false, :id => "member", class: "form-select"}) %>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+             <div class="mb-3">
+                    <%= form.submit "Submit", :class => "btn btn-primary" %>
+                    <%= link_to "Cancel", members_path, class: "btn btn-secondary" %>
+                </div>
+        <div>
+    </div>
+    <% end %>
+
+    <div class="notice"><%= notice %></div>
+</div>

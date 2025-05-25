@@ -3,7 +3,7 @@ class MembersController < ApplicationController
   before_action :find_member, only: %i[ show edit update ]
 
   def index
-    @members = Member.all
+    @members = Member.all.order(:current_rank)
   end
 
   def show
