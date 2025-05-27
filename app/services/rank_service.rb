@@ -33,7 +33,7 @@ class RankService
   end
 
   def handle_draw(higher, lower)
-    return if (higher.current_rank - lower.current_rank) == 1
+    return if (higher.current_rank - lower.current_rank).abs == 1
 
     lower.current_rank -= 1
     update_ranks([lower])
