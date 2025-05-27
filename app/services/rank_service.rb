@@ -34,9 +34,10 @@ class RankService
 
   def handle_draw(higher, lower)
     return if (higher.current_rank - lower.current_rank).abs == 1
-
-    lower.current_rank -= 1
-    update_ranks([lower])
+    new_rank = lower.current_rank - 1
+    # lower.current_rank -= 1
+    # update_ranks([lower])
+     promote_player(lower, new_rank)
   end
 
   def handle_win(winner, loser)
