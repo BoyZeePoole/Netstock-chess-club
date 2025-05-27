@@ -1,24 +1,24 @@
 <div class="container mt-5">
   <h4>Play Match</h4>
-    <%= form_with :url => {:action => "update"} do |form| %>
+    <%= form_with model: @match, :url => {:action => "update"} do |form| %>
 
     <div class="row">
         <div class="col-4">
             <div class="mb-3">
                 <label class="form-label">Player 01</label>
-                <%= form.select(:members_p1, options_for_select(@members.map{ |member| [member.name, member.id]}), {},{multiple: false, :id => "member", class: "form-select"}) %>
+                <%= form.select(:player_one, options_for_select(@members.map{ |member| [member.name, member.id]}), {},{multiple: false, :id => "member", class: "form-select"}) %>
             </div>
         </div>
         <div class="col-4">
             <div class="mb-3">
                 <label class="form-label">Player 02</label>
-                <%= form.select(:members_p2, options_for_select(@members.map{ |member| [member.name, member.id]}), {},{multiple: false, :id => "member", class: "form-select"}) %>
+                <%= form.select(:player_two, options_for_select(@members.map{ |member| [member.name, member.id]}), {},{multiple: false, :id => "member", class: "form-select"}) %>
             </div>
         </div>
         <div class="col-4">
             <div class="mb-3">
-                <label class="form-label">Outcome</label>
-                <%= form.select(:result, options_for_select([["Draw", 0]] + @members.map{ |member| [member.name, member.id]}), {},{multiple: false, :id => "member", class: "form-select"}) %>
+                <label class="form-label">Result</label>
+                <%= form.select(:result, options_for_select([["Draw", 0], ["Player 01", 1], ["Player 02", 2]]), {},{multiple: false, :id => "member", class: "form-select"}) %>
             </div>
         </div>
     </div>

@@ -1,0 +1,103 @@
+class MatchesController < ApplicationController
+  
+
+  def edit
+    @members = Member.all
+  end
+
+  def create
+    @player1_id = params[:members_p1].to_i
+    @player2_id = params[:members_p2].to_i
+    @result = params[:result].to_i
+    return unless validate?
+    update_games_played
+    calculate_rank
+    
+  end
+
+  def calculate_rank
+    if unchanged?
+      # redirect_to root_path
+      return
+    end
+
+    if @result == 0 & !@same_rank
+      @lower_rank.current_rank -= 1 unless @lower_rank.current_rank == 1
+      @lower_rank.save!
+      # redirect_to root_path
+      return
+    end
+
+    if @lower_rank == @winner
+      @lower_rank.current_rank = @lower_rank.current_rank - (diff(@player1.current_rank, @player2.current_rank).to_f / 2.to_f).ceil()
+      @lower_rank.save!
+      @higher_rank.current_rank += 1
+      @higher_rank.save!
+    end
+
+    if @same_rank == true
+      
+    end
+    redirect_to root_path
+  end
+
+  private
+  
+  def validate?
+    if @player1_id == @player2_id
+      redirect_to edit_matches_path, notice: "Please select differrent players..." 
+      return false
+    end
+   
+    @player1 = Member.find(@player1_id)
+    @player2 = Member.find(@player2_id)
+
+    
+    @same_rank = @player1.current_rank == @player2.current_rank
+    if @same_rank == true
+      @higher_rank = nil
+      @lower_rank = nil
+    else
+      @lower_rank = @player1.current_rank > @player2.current_rank ? @player1 : @player2
+      @higher_rank = @player1.current_rank < @player2.current_rank ? @player1 : @player2
+    end
+    
+    if @result == 0 
+      @winner = nil
+      return true
+    elsif @result != @player1_id && @result != @player2_id 
+      redirect_to edit_matches_path, notice: "Please select either #{@player1.name} or #{@player2.name}"
+      return false
+    else
+      @winner = @result == @player1.id ? @player1 : @player2
+      return true
+    end
+  end
+
+  def update_games_played
+    @player1.no_of_games_played += 1
+    @player1.save!
+    @player2.no_of_games_played += 1
+    @player2.save!
+  end
+
+  def unchanged?
+    if @result == 0  # draw
+      return true if adjacent?
+    else
+      return true if @winner == @higher_rank
+    end
+    
+    false
+  end
+
+  def adjacent?
+    return diff(@player1.current_rank, @player2.current_rank) == 1
+  end
+
+  def diff(a, b)
+    (a - b).abs
+  end
+
+
+end

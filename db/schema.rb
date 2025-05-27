@@ -10,14 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_23_132603) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_26_144700) do
+  create_table "matches", force: :cascade do |t|
+    t.integer "player_one_id"
+    t.integer "player_two_id"
+    t.integer "result"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "members", force: :cascade do |t|
     t.string "name"
     t.string "surname"
     t.string "email_address"
     t.date "birthday"
-    t.integer "no_of_games_played"
-    t.integer "current_rank"
+    t.integer "no_of_games_played", default: 0
+    t.integer "current_rank", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
